@@ -21,6 +21,8 @@ tar -xzf /opt/esp/toolchain.tar.gz --directory /opt/esp/toolchain
 
 git clone --recursive --branch release/v3.2 https://github.com/espressif/ESP8266_RTOS_SDK.git /opt/esp/sdk
 
+chown -R root:vagrant /opt/esp
+
 cat > /etc/profile.d/esp8266.sh << EOL
 export PATH="${PATH}:/opt/esp/toolchain/xtensa-lx106-elf/bin"
 export IDF_PATH="/opt/esp/sdk"
