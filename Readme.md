@@ -1,0 +1,1 @@
+Once you have run `vagrant up`, run `vagrant ssh-config` and save the result in `%USERPROFILE%\.shh\config`

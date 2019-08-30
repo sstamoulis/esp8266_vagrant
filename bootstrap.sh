@@ -1,0 +1,31 @@
+apt-get update
+apt-get install -y \
+    gcc \
+    git \
+    wget \
+    curl \
+    make \
+    libncurses-dev \
+    flex \
+    bison \
+    gperf \
+    python \
+    python-serial \
+    python-pip
+
+mkdir -p /opt/esp
+wget --no-verbose https://dl.espressif.com/dl/xtensa-lx106-elf-linux64-1.22.0-92-g8facf4c-5.2.0.tar.gz -O /opt/esp/toolchain.tar.gz
+echo "A97823F9DA1776BFEF62A9E196F8D04CD0BACAFC /opt/esp/toolchain.tar.gz" | sha1sum -c -
+mkdir -p /opt/esp/toolchain
+tar -xzf /opt/esp/toolchain.tar.gz --directory /opt/esp/toolchain
+
+git clone --recursive --branch release/v3.2 https://github.com/espressif/ESP8266_RTOS_SDK.git /opt/esp/sdk
+
+cat > /etc/profile.d/esp8266.sh << EOL
+export PATH="${PATH}:/opt/esp/toolchain/xtensa-lx106-elf/bin"
+export IDF_PATH="/opt/esp/sdk"
+EOL
+
+source /etc/profile.d/esp8266.sh
+
+python -m pip install -r $IDF_PATH/requirements.txt
