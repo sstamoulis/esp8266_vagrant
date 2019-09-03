@@ -11,7 +11,10 @@ apt-get install -y \
     gperf \
     python \
     python-serial \
-    python-pip
+    python-pip \
+    linux-modules-extra-$(uname -r)
+
+adduser vagrant dialout
 
 mkdir -p /opt/esp
 wget --no-verbose https://dl.espressif.com/dl/xtensa-lx106-elf-linux64-1.22.0-92-g8facf4c-5.2.0.tar.gz -O /opt/esp/toolchain.tar.gz
