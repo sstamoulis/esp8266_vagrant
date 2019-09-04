@@ -2,6 +2,7 @@ apt-get update
 apt-get install -y \
     gcc \
     git \
+    libsecret-1-0 \
     wget \
     curl \
     make \
