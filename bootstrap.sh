@@ -19,16 +19,23 @@ apt-get install -y \
 adduser vagrant dialout
 
 mkdir -p /opt/esp
-wget --no-verbose https://dl.espressif.com/dl/xtensa-lx106-elf-linux64-1.22.0-92-g8facf4c-5.2.0.tar.gz -O /opt/esp/toolchain.tar.gz
-echo "A97823F9DA1776BFEF62A9E196F8D04CD0BACAFC /opt/esp/toolchain.tar.gz" | sha1sum -c -
+if ! (echo "A97823F9DA1776BFEF62A9E196F8D04CD0BACAFC /opt/esp/toolchain.tar.gz" | sha1sum -c -); then
+    wget --no-verbose https://dl.espressif.com/dl/xtensa-lx106-elf-linux64-1.22.0-92-g8facf4c-5.2.0.tar.gz -O /opt/esp/toolchain.tar.gz
+    echo "A97823F9DA1776BFEF62A9E196F8D04CD0BACAFC /opt/esp/toolchain.tar.gz" | sha1sum -c -
+fi
+rm -rf /opt/esp/toolchain
 mkdir -p /opt/esp/toolchain
 tar -xzf /opt/esp/toolchain.tar.gz --directory /opt/esp/toolchain
 
-git clone --recursive --branch master https://github.com/sstamoulis/ESP8266_RTOS_SDK.git /opt/esp/sdk
+if [ ! -d /opt/esp/sdk ]; then
+    git clone --recursive --branch master https://github.com/sstamoulis/ESP8266_RTOS_SDK.git /opt/esp/sdk
+else
+    git -C /opt/esp/sdk pull
+fi
 
 chown -R root:vagrant /opt/esp
 
-cat > /etc/profile.d/esp8266.sh << EOL
+cat > /etc/profile.d/esp8266.sh << 'EOL'
 export IDF_PATH="/opt/esp/sdk"
 export PATH="${PATH}:/opt/esp/toolchain/xtensa-lx106-elf/bin:${IDF_PATH}/tools"
 EOL
