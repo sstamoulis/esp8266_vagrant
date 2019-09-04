@@ -5,6 +5,8 @@ apt-get install -y \
     wget \
     curl \
     make \
+    cmake \
+    ccache \
     libncurses-dev \
     flex \
     bison \
@@ -27,8 +29,8 @@ git clone --recursive --branch release/v3.2 https://github.com/espressif/ESP8266
 chown -R root:vagrant /opt/esp
 
 cat > /etc/profile.d/esp8266.sh << EOL
-export PATH="${PATH}:/opt/esp/toolchain/xtensa-lx106-elf/bin"
 export IDF_PATH="/opt/esp/sdk"
+export PATH="${PATH}:/opt/esp/toolchain/xtensa-lx106-elf/bin:${IDF_PATH}/tools"
 EOL
 
 source /etc/profile.d/esp8266.sh
