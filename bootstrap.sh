@@ -24,7 +24,7 @@ echo "A97823F9DA1776BFEF62A9E196F8D04CD0BACAFC /opt/esp/toolchain.tar.gz" | sha1
 mkdir -p /opt/esp/toolchain
 tar -xzf /opt/esp/toolchain.tar.gz --directory /opt/esp/toolchain
 
-git clone --recursive --branch release/v3.2 https://github.com/espressif/ESP8266_RTOS_SDK.git /opt/esp/sdk
+git clone --recursive --branch master https://github.com/espressif/ESP8266_RTOS_SDK.git /opt/esp/sdk
 
 chown -R root:vagrant /opt/esp
 
