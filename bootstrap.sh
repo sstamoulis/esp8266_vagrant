@@ -36,10 +36,17 @@ fi
 chown -R root:vagrant /opt/esp
 
 cat > /etc/profile.d/esp8266.sh << 'EOL'
+#!/bin/bash
+pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        export PATH="${PATH:+"$PATH:"}$1"
+    fi
+}
 export IDF_PATH="/opt/esp/sdk"
-export PATH="${PATH}:/opt/esp/toolchain/xtensa-lx106-elf/bin:${IDF_PATH}/tools"
+pathadd /opt/esp/sdk/tools
+pathadd /opt/esp/toolchain/xtensa-lx106-elf/bin
 EOL
 
-source /etc/profile.d/esp8266.sh
+. /etc/profile.d/esp8266.sh
 
 python -m pip install -r $IDF_PATH/requirements.txt
