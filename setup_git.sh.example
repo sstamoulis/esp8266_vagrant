@@ -1,2 +1,8 @@
 git config --global user.name "Your Name"
 git config --global user.email "your.email@example.com"
+git config --global credential.helper store
+git credential approve << EOL
+url=https://github.com
+username=your.username
+password=yourpassword
+EOL
