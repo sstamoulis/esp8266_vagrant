@@ -13,8 +13,7 @@ apt-get install -y \
     gperf \
     python \
     python-serial \
-    python-pip \
-    linux-modules-extra-$(uname -r)
+    python-pip
 
 adduser vagrant dialout
 
