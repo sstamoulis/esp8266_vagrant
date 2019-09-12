@@ -4,7 +4,7 @@ Vagrant.configure("2") do |config|
   if File.file?("setup_git.sh")
     config.vm.provision "shell", path: "setup_git.sh", privileged: false
   end
-  config.vm.provision "shell", inline: "apt-get install -y linux-modules-extra-$(uname -r)", run: "always"
+  config.vm.provision "shell", inline: "apt-get update && apt-get install -y linux-modules-extra-$(uname -r)", run: "always"
   config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--usb", "on"]
